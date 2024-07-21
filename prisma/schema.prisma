@@ -1,0 +1,43 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model MagicCard {
+  id              String           @id
+  name            String
+  mana_cost       String?
+  cmc             Float
+  type_line       String
+  oracle_text     String
+  colors          String[]
+  set_name        String
+  rarity          String
+  artist          String
+  tcgplayer_url   String?
+  cardmarket_url  String?
+  cardhoarder_url String?
+  scryfall_url    String?
+  gatherer_url    String?
+  createdAt       DateTime         @default(now())
+  image_url       String?
+  MagicCardPrice  MagicCardPrice[]
+}
+
+model MagicCardPrice {
+  id          Int       @id @default(autoincrement())
+  usd         Decimal?  @db.Decimal(10, 2)
+  usd_foil    Decimal?  @db.Decimal(10, 2)
+  usd_etched  Decimal?  @db.Decimal(10, 2)
+  eur         Decimal?  @db.Decimal(10, 2)
+  eur_foil    Decimal?  @db.Decimal(10, 2)
+  tix         Decimal?  @db.Decimal(10, 2)
+  magicCardId String
+  createdAt   DateTime  @default(now())
+  MagicCard   MagicCard @relation(fields: [magicCardId], references: [id])
+}
