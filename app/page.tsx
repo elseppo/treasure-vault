@@ -8,6 +8,7 @@ import {Button, Card, CardBody, CardHeader, Image, Input, Pagination} from "@nex
 import {debounce} from "lodash";
 
 import {findMagicCardsByFilter, MagicCardResult,} from "@/lib/actions/CardAction";
+import Chart from "@/components/chart";
 
 export default function CardList() {
     const pageSize = 12;
@@ -95,9 +96,9 @@ export default function CardList() {
                     />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div id="cards-container" className="flex flex-wrap justify-between">
                     {cards.map((card: MagicCard) => (
-                        <Card key={card.id} className="py-4 max-w-fit">
+                        <Card key={card.id} className="py-4 w-1/2">
 
                             <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                                 <h4 className="font-bold text-large">{card.name}</h4>
@@ -107,20 +108,24 @@ export default function CardList() {
                                 <p className="text-tiny uppercase font-bold">{card.set_name}</p>
                             </CardHeader>
 
-                            <CardBody className="overflow-visible py-2">
-                                <a
-                                    href={card?.cardmarket_url ?? ""}
-                                    rel="noopener noreferrer"
-                                    target="_blank"
+                            <CardBody className="overflow-visible py-2 flex flex-wrap">
+
+                                <a className="w-fit"
+                                   href={card?.cardmarket_url ?? ""}
+                                   rel="noopener noreferrer"
+                                   target="_blank"
                                 >
                                     {" "}
                                     <Image
                                         alt="Card background"
                                         className="object-cover rounded-xl"
                                         src={card.image_url ?? ""}
-                                        width={270}
+                                        height={250}
                                     />
                                 </a>
+                                <div className="w-fit">
+                                    <Chart prices={(card as any).MagicCardPrice}></Chart>
+                                </div>
                             </CardBody>
 
                         </Card>

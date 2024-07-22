@@ -13,4 +13,4 @@
 - https://ui.shadcn.com/charts
 - https://recharts.org/en-US/
 - https://github.com/chris-trapstar/nextui-dashboard
-- https://undraw.co/search[.gitignore](.gitignore)
+- https://undraw.co/search
