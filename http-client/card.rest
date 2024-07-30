@@ -1,0 +1,21 @@
+### GET Request to fetch all scryfall cards
+GET http://localhost:3000/api/fetchScryfallAllCards
+
+### GET Request to update prices
+GET http://localhost:3000/api/updateScryfallPrices
+
+### POST Request to create a new MagicCard
+POST http://localhost:3000/api/prisma/createCard
+Content-Type: application/json
+
+### POST Request to create a new Price
+POST http://localhost:3000/api/prisma/createPrice
+Content-Type: application/json
+
+### POST Request to fetch all cards data from scryfall bulk download
+POST http://localhost:3000/api/prisma/fetchScryfallAllCards
+Content-Type: application/json
+
+### POST Request to fetch all cards data from scryfall bulk download
+POST http://localhost:3000/api/prisma/fetchScryfallAllCardsLocally
+Content-Type: application/json
