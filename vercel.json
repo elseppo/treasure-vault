@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/fetchScryfall",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
