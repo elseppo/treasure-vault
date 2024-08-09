@@ -4,11 +4,21 @@ import path from "path";
 import axios from "axios";
 import { MagicCard } from "@prisma/client";
 
-export function scryfallCardToCardWithPriceDto(card: any): any {
+/**
+ *
+ * Use this object, to Save a MagicCard with relation in Prisma
+ * The magicCardId Property is removed from the CardPrice, as it is automatically added during create
+ *
+ * @param card
+ * The scryfall json as fetched from the api
+ */
+export function generateMagicCardPrismaDtoFromScryfallCard(
+  card: any,
+): MagicCard {
   const convertedCard = scryfallCardToCard(card);
   const convertedPrice = scryfallCardToPrice(card);
-  // remove magicCardId Property as it is automatically added during create
-  // and having it in the objects will result in an error
+  // Remove the cardId from the price project
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { magicCardId, ...priceWithoutMagicCardId } = convertedPrice;
 
   return {
@@ -19,7 +29,7 @@ export function scryfallCardToCardWithPriceDto(card: any): any {
   };
 }
 
-export function scryfallCardToCard(card: any): any {
+function scryfallCardToCard(card: any): any {
   return {
     id: card.id,
     name: card.name,
@@ -40,7 +50,7 @@ export function scryfallCardToCard(card: any): any {
   };
 }
 
-export function scryfallCardToPrice(card: any): any {
+function scryfallCardToPrice(card: any): any {
   return {
     usd: card.prices.usd ? parseFloat(card.prices.usd) : null,
     usd_foil: card.prices.usd_foil ? parseFloat(card.prices.usd_foil) : null,

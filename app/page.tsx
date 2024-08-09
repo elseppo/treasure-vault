@@ -2,8 +2,6 @@
 
 import React, { useCallback, useEffect, useState } from "react";
 import { MagicCard, MagicCardPrice } from "@prisma/client";
-
-// @ts-ignore
 import {
   Card,
   CardBody,
@@ -14,10 +12,7 @@ import {
 } from "@nextui-org/react";
 import { debounce } from "lodash";
 
-import {
-  findMagicCardsByFilter,
-  MagicCardResult,
-} from "@/lib/actions/CardAction";
+import { getMagicCards, MagicCardResult } from "@/lib/card";
 import Chart from "@/components/chart";
 
 export default function CardList() {
@@ -32,40 +27,16 @@ export default function CardList() {
     // Anonyme Asynchrone Funktion zum Abrufen der Daten
     // wird direkt gecalled durch die geile () am ende
     (async () => {
-      try {
-        const result: MagicCardResult = await findMagicCardsByFilter(
-          nameInput,
-          pageNumber,
-          pageSize,
-        );
+      const result: MagicCardResult = await getMagicCards(
+        nameInput,
+        pageNumber,
+        pageSize,
+      );
 
-        setCards(result.magicCards);
-        setTotalCards(result.total);
-      } catch (error) {
-        console.log(error);
-      }
+      setCards(result.magicCards);
+      setTotalCards(result.total);
     })();
-
-    return () => {
-      console.log("Destroyed CardList-Component");
-    };
   }, [nameInput, pageNumber]); // Leeres Array als Abhängigkeit bedeutet, dass dieser Effekt nur einmal nach dem initialen Rendern ausgeführt wird
-
-  function handlePageNumberChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const number = parseInt(e.target.value);
-
-    if (!isNaN(number)) {
-      setPageNumber(number);
-    }
-  }
-
-  const handlePreviousPageClick = () => {
-    setPageNumber((prevPageNumber) => Math.max(prevPageNumber - 1, 1));
-  };
-
-  const handleNextPageClick = () => {
-    setPageNumber((prevPageNumber) => prevPageNumber + 1);
-  };
 
   const handleFilterStringChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameInput(e.target.value);

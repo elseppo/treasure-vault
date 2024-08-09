@@ -4,7 +4,7 @@ import fs from "node:fs";
 
 import { PrismaClient } from "@prisma/client";
 
-import { scryfallCardToCardWithPriceDto } from "../lib/scryfall/scryfallHelper";
+import { generateMagicCardPrismaDtoFromScryfallCard } from "../lib/scryfall/scryfallHelper";
 
 const JSONStream = require("JSONStream");
 
@@ -40,7 +40,7 @@ main()
 
 async function processCard(card: any) {
   try {
-    const cardToSave = scryfallCardToCardWithPriceDto(card);
+    const cardToSave = generateMagicCardPrismaDtoFromScryfallCard(card);
 
     await prisma.magicCard.create({ data: cardToSave });
   } catch (e) {
