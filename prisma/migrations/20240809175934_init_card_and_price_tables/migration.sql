@@ -16,6 +16,7 @@ CREATE TABLE "MagicCard" (
     "scryfall_url" TEXT,
     "gatherer_url" TEXT,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "image_url" TEXT,
 
     CONSTRAINT "MagicCard_pkey" PRIMARY KEY ("id")
 );

@@ -4,10 +4,7 @@ import fs from "node:fs";
 
 import { PrismaClient } from "@prisma/client";
 
-import {
-  scryfallCardToCard,
-  scryfallCardToPrice,
-} from "../lib/scryfall/scryfallHelper";
+import { generateMagicCardPrismaDtoFromScryfallCard } from "../lib/scryfall/scryfallHelper";
 
 const JSONStream = require("JSONStream");
 
@@ -43,18 +40,7 @@ main()
 
 async function processCard(card: any) {
   try {
-    const convertedCard = scryfallCardToCard(card);
-    const convertedPrice = scryfallCardToPrice(card);
-    // remove magicCardId Property as it is automatically added during create
-    // and having it in the objects will result in an error
-    const { magicCardId, ...priceWithoutMagicCardId } = convertedPrice;
-
-    const cardToSave = {
-      ...convertedCard,
-      MagicCardPrice: {
-        create: [priceWithoutMagicCardId],
-      },
-    };
+    const cardToSave = generateMagicCardPrismaDtoFromScryfallCard(card);
 
     await prisma.magicCard.create({ data: cardToSave });
   } catch (e) {

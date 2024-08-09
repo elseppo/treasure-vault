@@ -1,0 +1,2 @@
+### GET Request to fetch all scryfall cards
+GET http://localhost:3000/api/fetchScryfall
