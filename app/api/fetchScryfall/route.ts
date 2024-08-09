@@ -2,8 +2,13 @@ import { NextResponse } from "next/server";
 
 import { fetchAndSafeScryfallCards } from "@/lib/scryfall/scryfallService";
 
-export async function GET(request: Request) {
-  const result = await fetchAndSafeScryfallCards();
+export async function POST(request: Request) {
+  const body = await request.json();
+  const doFetch: boolean = body.doFetch;
 
-  return NextResponse.json({ result });
+  if (doFetch == true) {
+    return NextResponse.json(await fetchAndSafeScryfallCards());
+  }
+
+  return NextResponse.json({});
 }

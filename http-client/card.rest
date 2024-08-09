@@ -1,2 +1,7 @@
 ### GET Request to fetch all scryfall cards
-GET http://localhost:3000/api/fetchScryfall
+POST http://localhost:3000/api/fetchScryfall
+Content-Type: application/json
+
+{
+  "doFetch": "false"
+}

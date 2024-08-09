@@ -34,3 +34,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 /scryfall-data/oracle-cards.json
+
+.env

@@ -1,6 +1,8 @@
 import { MagicCard } from "@prisma/client";
 
-export interface MagicCardResult {
+interface MagicCardResult {
   magicCards: MagicCard[];
   total: number;
 }
+
+export type { MagicCardResult };
