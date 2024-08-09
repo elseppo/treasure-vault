@@ -1,6 +1,3 @@
-import fs from "node:fs";
-import path from "path";
-
 import axios from "axios";
 import { MagicCard } from "@prisma/client";
 
@@ -68,7 +65,7 @@ export async function getOracleCardsFromScryfall(fromLocal: boolean = false) {
   let cards;
 
   if (fromLocal) {
-    cards = getOracleCardsFromLocal();
+    // cards = getOracleCardsFromLocal();
   }
 
   if (!fromLocal) {
@@ -91,6 +88,7 @@ export async function getOracleCardsFromScryfall(fromLocal: boolean = false) {
   return cards;
 }
 
+/*
 export function getOracleCardsFromLocal() {
   console.log("Fetching Bulk Data from LOCAL ");
   const json = fs.readFileSync(
@@ -101,3 +99,4 @@ export function getOracleCardsFromLocal() {
 
   return cards;
 }
+*/
