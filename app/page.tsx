@@ -11,9 +11,11 @@ import {
   Pagination,
 } from "@nextui-org/react";
 import { debounce } from "lodash";
+import { Button } from "@nextui-org/button";
 
 import { getMagicCards, MagicCardResult } from "@/lib/card";
 import Chart from "@/components/chart";
+import { fetchScryfall } from "@/lib/scryfall/scryfallAction";
 
 export default function CardList() {
   const pageSize = 12;
@@ -37,6 +39,10 @@ export default function CardList() {
       setTotalCards(result.total);
     })();
   }, [nameInput, pageNumber]); // Leeres Array als Abhängigkeit bedeutet, dass dieser Effekt nur einmal nach dem initialen Rendern ausgeführt wird
+
+  const handleFetchClick = async () => {
+    await fetchScryfall();
+  };
 
   const handleFilterStringChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameInput(e.target.value);
@@ -66,6 +72,7 @@ export default function CardList() {
   return (
     <>
       <div>
+        <Button onClick={handleFetchClick}> Fetch ! </Button>
         <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
           <Input
             label="Suche"
