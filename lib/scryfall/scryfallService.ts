@@ -11,6 +11,7 @@ interface ScryfallUpdateError {
 }
 
 export const fetchAndSafeScryfallCards = async (fromLocal: boolean = false) => {
+  console.log("fetchAndSafeScryfallCards");
   const cards: any[] = await getOracleCardsFromScryfall(fromLocal);
   const errors: ScryfallUpdateError[] = [];
   let totalUpsert: number = 0;
